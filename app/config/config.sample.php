@@ -14,7 +14,7 @@ return [
     // Full site URL with no trailing slash, or "auto" (detected from the request; recommended on shared hosting).
     // If "auto" is wrong, set "base_path" to the path only, e.g. "/group3/.../public_html" (and keep base_url as "auto").
     // CLI: set env CMS_BASE_URL when base_url is "auto".
-    'base_url' => 'https://your-college-domain.edu',
+    'base_url' => 'auto',
     'base_path' => null,
     'timezone' => 'Asia/Kolkata',
     'session' => [

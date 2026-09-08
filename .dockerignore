@@ -1,0 +1,17 @@
+.git
+.gitignore
+.venv
+.idea
+.vscode
+.DS_Store
+tools
+presentation
+storage/logs/*
+storage/backups/*
+public_html/uploads/*
+!storage/logs/.gitkeep
+!storage/backups/.gitkeep
+!public_html/uploads/.gitkeep
+docs
+README.md
+*.log

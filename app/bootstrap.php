@@ -19,6 +19,42 @@ if (!is_file($configFile)) {
 /** @var array<string,mixed> $config */
 $config = require $configFile;
 
+$cmsEnv = static function (string $name): string|false {
+    $v = getenv($name);
+    return is_string($v) ? $v : false;
+};
+$envUrl = $cmsEnv('CMS_BASE_URL');
+if ($envUrl === false || $envUrl === '') {
+    $envUrl = $cmsEnv('RENDER_EXTERNAL_URL');
+}
+if (is_string($envUrl) && $envUrl !== '') {
+    $config['base_url'] = rtrim($envUrl, '/');
+}
+$envName = $cmsEnv('CMS_ENVIRONMENT');
+if (is_string($envName) && $envName !== '') {
+    $config['environment'] = $envName;
+}
+$db = is_array($config['db'] ?? null) ? $config['db'] : [];
+foreach (['CMS_DB_HOST' => 'host', 'CMS_DB_NAME' => 'name', 'CMS_DB_USER' => 'user', 'CMS_DB_CHARSET' => 'charset'] as $envKey => $dbKey) {
+    $v = $cmsEnv($envKey);
+    if (is_string($v) && $v !== '') {
+        $db[$dbKey] = $v;
+    }
+}
+$dbPort = $cmsEnv('CMS_DB_PORT');
+if (is_string($dbPort) && $dbPort !== '') {
+    $db['port'] = (int) $dbPort;
+}
+$dbPass = $cmsEnv('CMS_DB_PASS');
+if ($dbPass !== false) {
+    $db['pass'] = $dbPass;
+}
+$config['db'] = $db;
+$cronKey = $cmsEnv('CMS_CRON_KEY');
+if (is_string($cronKey) && $cronKey !== '') {
+    $config['cron_key'] = $cronKey;
+}
+
 $rawBase = (string) ($config['base_url'] ?? 'auto');
 $isDev = (string) ($config['environment'] ?? 'production') === 'development';
 // Exact URL from config (XAMPP subfolder, or matching host:port to the browser on purpose).
