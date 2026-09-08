@@ -1,0 +1,105 @@
+/* Colorful interactive timetable (SKUAST-inspired) */
+.tt-page {
+  --tt-teal: #0d5c4d;
+  --tt-gold: #c9a227;
+  --tt-berry: #7b2d5b;
+  --tt-sky: #1a7fa0;
+  --tt-leaf: #2e7d32;
+}
+.tt-hero {
+  background: linear-gradient(120deg, var(--tt-teal) 0%, #1565c0 40%, var(--tt-berry) 100%);
+  box-shadow: 0 0.4rem 1.2rem rgba(13, 92, 77, 0.25);
+}
+.tt-hero__sub { font-weight: 400; font-size: 0.6em; opacity: 0.85; }
+.tt-hero__lead { max-width: 50rem; }
+.tt-label { color: #1565c0; font-weight: 600; }
+.tt-input { border-color: rgba(13, 92, 77, 0.35); }
+.tt-legend { font-size: 0.9rem; color: #37474f; }
+.tt-info { background: linear-gradient(90deg, #e3f2fd, #fff8e1); border: 1px solid #b3e5fc; }
+.tt-strip { background: #fff3e0; border: 1px solid #ffe0b2; }
+.tt-link { color: #0d5c4d; font-weight: 600; }
+
+.tt-board-wrap { overflow-x: auto; }
+.tt-grid { border-collapse: separate; border-spacing: 2px; min-width: 780px; }
+.tt-grid th, .tt-grid td {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  vertical-align: top;
+  padding: 0.3rem 0.4rem;
+  min-width: 6.75rem;
+  font-size: 0.9rem;
+}
+.tt-time {
+  background: linear-gradient(180deg, #e8f5e9, #c8e6c9) !important;
+  width: 5.75rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  white-space: nowrap;
+  color: #1b5e20;
+}
+.tt-day-1 { background: linear-gradient(180deg, #e3f2fd, #bbdefb) !important; }
+.tt-day-2 { background: linear-gradient(180deg, #f3e5f5, #e1bee7) !important; }
+.tt-day-3 { background: linear-gradient(180deg, #e8f5e9, #a5d6a7) !important; }
+.tt-day-4 { background: linear-gradient(180deg, #fff8e1, #ffecb3) !important; }
+.tt-day-5 { background: linear-gradient(180deg, #fce4ec, #f48fb1) !important; }
+
+.tt-grid tbody .tt-time {
+  background: linear-gradient(90deg, #e0f2f1, #b2dfdb) !important;
+  color: #00695c;
+}
+.tt-cell--empty { background: repeating-linear-gradient(45deg, #eceff1, #eceff1 3px, #fff 3px, #fff 6px) !important; }
+.tt-cell--lunch {
+  background: linear-gradient(90deg, #fff3e0, #ffecb3) !important;
+  text-align: center;
+  font-size: 0.85rem;
+}
+.tt-grid .tt-drop { background: #fffef7; }
+.tt-grid .tt-drop.tt-cell--empty { background: #fafafa; }
+
+.tt-course { font-weight: 700; font-size: 0.88rem; color: #0d47a1; }
+.tt-venue, .t-note { font-size: 0.75rem; color: #5d4037; }
+.tt-chips { margin-top: 0.2rem; }
+
+/* Do NOT set pointer-events: none on .tt-chips during drag — it breaks dragover/drop on the *target* cell in Chrome/Edge. */
+body.tt-dnd-active .tt-actions { pointer-events: auto; }
+
+/* Subjects and teacher lines are inside the chip; let the chip receive drag so the whole block moves together */
+.tt-chip[draggable="true"] * {
+  pointer-events: none;
+}
+.tt-chip[draggable="true"] {
+  pointer-events: auto;
+}
+/* Drop targets must still receive the pointer for HTML5 DnD */
+.tt-grid td.tt-drop { position: relative; }
+.tt-chip {
+  display: block;
+  padding: 0.25rem 0.4rem;
+  font-size: 0.75rem;
+  border-radius: 0.4rem;
+  background: linear-gradient(135deg, #1565c0, #0d47a1);
+  color: #fff;
+  cursor: grab;
+  max-width: 100%;
+  min-width: 4.5rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  border: 1px solid rgba(255,255,255,0.25);
+  touch-action: none;
+  line-height: 1.25;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.tt-chip__line.tt-chip__course { font-weight: 800; font-size: 0.8rem; }
+.tt-chip__subj { font-size: 0.65rem; opacity: 0.9; max-width: 6rem; }
+.tt-chip__line.tt-chip__teacher { font-weight: 600; }
+.tt-chip__ids { font-size: 0.58rem; opacity: 0.75; font-family: ui-monospace, monospace; margin-top: 0.1rem; }
+.tt-chip.tt-mine { background: linear-gradient(135deg, #2e7d32, #1b5e20); }
+.tt-chip.tt-ch--pending { outline: 2px solid #ff9800; }
+.tt-chip.tt-ch--declined { background: linear-gradient(135deg, #b71c1c, #c62828); }
+.tt-chip.tt-ch--confirmed { }
+.tt-drop.drop-target { outline: 2px dashed #1565c0; background: #e3f2fd; }
+.tt-hint { font-size: 0.68rem; color: #546e7a; }
+
+.tt-actions .btn-xs, .btn.btn-xs { padding: 0.05rem 0.4rem; font-size: 0.68rem; line-height: 1.3; }
+@media (max-width: 768px) { .tt-grid { font-size: 0.82rem; } }
+.tt-ref__code { font-size: 0.95em; }
+details.tt-ref > summary { cursor: pointer; }

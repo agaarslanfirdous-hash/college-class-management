@@ -1,0 +1,15 @@
+# College Class Management System — do not commit secrets
+/app/config/config.php
+/storage/logs/*
+!/storage/logs/.gitkeep
+/storage/backups/*
+!/storage/backups/.gitkeep
+/public_html/uploads/*
+!/public_html/uploads/.gitkeep
+tools/mysql_data/
+tools/macos/
+.venv/
+.idea
+.vscode
+.DS_Store
+*.log

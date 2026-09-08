@@ -1,0 +1,48 @@
+/**
+ * College CMS — small overrides on top of Bootstrap. Responsive: phones, tablets, desktops.
+ */
+html {
+    -webkit-text-size-adjust: 100%;
+}
+body {
+    overflow-x: hidden;
+    padding-bottom: env(safe-area-inset-bottom, 0);
+    padding-left: env(safe-area-inset-left, 0);
+    padding-right: env(safe-area-inset-right, 0);
+}
+main .container {
+    max-width: 100%;
+}
+/* Readable line length on very wide screens */
+@media (min-width: 1400px) {
+    .container { max-width: 1320px; }
+}
+/* Smaller type on narrow phones; comfortable tap targets */
+@media (max-width: 576px) {
+    .navbar-brand { max-width: 70vw; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .btn, .form-control, .form-select { min-height: 44px; }
+    h1, .h1, .display-1 { font-size: calc(1.35rem + 1.2vw); }
+    h2, .h2, .h3, .h4 { font-size: 1.15rem; }
+    .table { font-size: 0.9rem; }
+    .table-responsive { -webkit-overflow-scrolling: touch; }
+}
+/* Tablets */
+@media (min-width: 577px) and (max-width: 991.98px) {
+    .container { padding-left: 1.25rem; padding-right: 1.25rem; }
+}
+@media print {
+    .navbar, footer, .no-print { display: none !important; }
+    main { padding: 0 !important; }
+}
+.status-dot {
+    width: 0.65rem;
+    height: 0.65rem;
+    border-radius: 50%;
+    display: inline-block;
+    vertical-align: middle;
+}
+.status-pending { background-color: #6c757d; }
+.status-present { background-color: #198754; }
+.status-absent { background-color: #dc3545; }
+.status-late { background-color: #fd7e14; }
+.status-on_leave { background-color: #0dcaf0; }

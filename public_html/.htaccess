@@ -1,0 +1,33 @@
+# College CMS — Apache (cPanel). Point document root to this folder.
+
+DirectoryIndex index.php
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    # If the site URL is https://host/path/to/this/folder, set the same here (with trailing slash):
+    # RewriteBase /group3/.../Aaaag/public_html/
+    RewriteBase /
+
+    # HTTPS redirect (uncomment in production when SSL is ready)
+    # RewriteCond %{HTTPS} !=on
+    # RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^ index.php [L,QSA]
+</IfModule>
+
+# Security headers (tune CSP for your CDNs)
+<IfModule mod_headers.c>
+    Header set X-Frame-Options "DENY"
+    Header set X-Content-Type-Options "nosniff"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+    Header set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+    # HSTS — enable only on HTTPS
+    # Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+</IfModule>
+
+# Block direct web access to accidental copies of app/config if ever placed here
+<FilesMatch "^(config\.php|\.env)$">
+    Require all denied
+</FilesMatch>
